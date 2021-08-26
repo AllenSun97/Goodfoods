@@ -63,7 +63,6 @@ def contact(request):
 			ContactForm_message, # message
 			ContactForm_email, # from mail
 			['s25681880@gmail.com'], # to mail
-
 			)
       
     return render(request, 'accounts/contact.html', {'ContactForm_name':ContactForm_name})
