@@ -1,0 +1,420 @@
+{% extends 'accounts/main.html'%}
+  {% load static %}
+  {% block content %}
+  <style>
+    hr{
+      height: 2px !important;
+      margin: 0;
+      width: 83%;
+    }
+    .container::after{
+      display: none;
+    }
+    .circle{
+      content: '';
+      position: absolute;
+      left: -50px;
+      bottom: -170%;
+      width: 410px;
+      height: 410px;
+      background: linear-gradient(to bottom,#78ffd6 20%,#6bff97);
+      z-index: -2;
+    }
+    .row{
+      margin-top: 5px !important;
+    }
+    .card{
+      position: relative;
+      transition: 0.5s;
+      overflow: hidden;
+    }
+    .card-img-top{
+      height: 100%;
+    }
+    .card-body .card-title {
+      position: relative;
+      margin-bottom: .5rem;
+    }
+    p.card-text{
+      font-size: 14px;
+      margin-bottom: 1rem;
+      min-height: 70px;
+    }
+    a.AddToCart{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 5px;
+      position: absolute;
+      right: 12px;
+      bottom: 15px;
+      width: 120px;
+      height: 30px;
+      overflow: hidden;
+      transition: 0.7s;
+      background: #ffffff;
+      border: solid #57e8b0 1px;
+      
+      z-index: 10;
+    }
+    a.AddToCart:hover{
+      color: #fff;
+      background: #57e8b0;
+    }
+    a.AddToCart span{
+      color: #57e8b0;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      position: absolute;
+      transition: 0.5s;
+    }
+    a.AddToCart:hover span{
+      color: white;
+      transform: translateY(30px);
+    }
+    a.AddToCart::before{
+      content: '\f00c';
+      font-family: fontawesome;
+      position: absolute;
+      color: #57e8b0;
+      font-size: 22px;
+      transform: translate(0 ,-30px);
+      left: 42%;
+      transition: 0.7s;
+      z-index: 10;
+    }
+    a.AddToCart:hover::before{
+      color: #fff;
+      transform: translate(0 ,0);
+      transition-duration:G0.7s,2s;
+    }
+    .col{
+      transition-delay: 0.1s !important;
+      transition: 0.5s ease-in-out;
+    }
+    .col:hover{
+      transform: scale(1.1);
+    }
+
+    .overlay{
+      z-index: 0;
+      background: rgba(255, 255, 255, 0.9);
+    }
+    .overlay h5.ct{
+      padding: 15px;
+      padding-bottom: 0;
+      margin: 0;
+    }
+    .overlay p {
+      padding-left: 25px;
+      font-size: 16px;
+      font-weight: 500;
+      margin-bottom: 3px;
+      margin-top: 12px;
+    }
+    .card:hover .overlay {
+      height: 100%;
+      opacity: 1;
+    }
+    .btn-group{
+      margin-left: 40px;
+    }
+    .btn-group input.demoInput{
+      width: 45px;
+      height: 25px;
+      background: #ffffff;
+      border: none;
+      border-radius: 5px;
+      text-align: center;
+      color: #333;
+      margin: 0 3px;
+      ;
+    } 
+    .btn-group input#minus,.btn-group input#plus{
+      border: none;
+      border-radius: 5px;
+      width: 15px;
+      background: #d2d2d2;
+      padding-left: 3px;
+    }
+    .form-check {
+      margin-left: 40px;
+    }
+    .form-check-input:checked {
+      background-color: #59eeb5;
+      border-color: #ffffff;
+    } 
+    .price{
+      padding: 5px;
+      position: absolute;
+      right: 10px;
+    }
+    @media (max-width: 1200px){
+      .h5, h5 {
+        font-size: 1.1rem;
+      }
+      .card-body {
+        min-height: 200px;
+      }
+    }
+    @media (max-width: 994px){
+      .ct{
+        font-size: 0.8rem;
+      }
+      .h5, h5 {
+        font-size: 1.1rem;
+      }
+      a.AddToCart{
+        border: none;
+        height: 45px;
+        width: 35px;
+        top: -4px;
+        right: 6px;
+        background: #ffffffeb;
+      }
+      a.AddToCart span{
+        display: none;
+      }
+      a.AddToCart:hover{
+        background: none;
+      }
+      a.AddToCart::before{
+        left: 37%;
+        top: 10.5px;
+        font-size: 13.5px;
+      }
+      a.AddToCart::after{
+        content: '\f07a';
+        font-family: fontawesome;
+        position: absolute;
+        right: 4px;
+        top: 5px;
+        color: #59eeb5;
+        font-size: 25px;
+      }
+      .card-body {
+        min-height: 170px;
+      }
+      p,p.card-text{
+        margin-bottom: 0;
+      }
+    }
+    @media (max-width: 768px){
+      hr{
+        width: 100%;
+      }
+      .col{
+        width: 314px;
+        margin-right: 50px;
+      }
+      .card{
+        flex-direction: row;
+        overflow: visible;
+      }
+      .card-body {
+        width: 220px;
+        min-height: 180px;
+      }
+      .card-img-top {
+        width: 100%;
+      }
+      p.card-text {
+        font-size: 16px;
+        margin-bottom: 1rem;
+        min-height: 70px;
+        width: 250px;
+      }
+    }
+  </style>
+  <h1>Menu</h1>
+  <h2 class="mt-4">Starters</h2>
+  <hr>
+  <div class="row row-cols-1 row-cols-md-4 g-4">
+    
+    {% for dish in object_list %}
+      {% if dish.tag == "Starter" %}
+          <div class="col">
+            <div class="card">
+              <img src="{{dish.pic.url}}" class="card-img-top">
+              <div class="card-body">
+                <h5 class="card-title">{{dish.name}}</h5>
+                <p class="card-text">{{dish.description}}</p>
+                <a href="#" class="AddToCart"><span>ADD TO CART</span></a>
+                <div class="overlay">
+                  <h5 class="ct">{{dish.name}}</h5>
+                  <p>Quantity</p>
+                  <div class="btn-group">
+                    <input id="minus" onclick='decrement("{{dish.id}}")' value="-">
+                    <input id=demoInput{{dish.id}} class="demoInput" type=number min=0 max=10 value="1">
+                    <input id="plus" onclick='increment("{{dish.id}}")' value="+">
+                  </div>
+                  <br/><br/>
+
+                  <p><small>total</small></p>
+                  <hr>
+                  <span class="price">NT$ {{dish.price}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  <h2 class="mt-5">Pizza</h2>
+  <hr>
+  <div class="row row-cols-1 row-cols-md-4 g-4">
+
+    {% for dish in object_list %}
+      {% if dish.tag == "Pizza" %}
+        <div class="col">
+          <div class="card">
+            <img src="{{dish.pic.url}}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">{{dish.name}}</h5>
+              <p class="card-text">{{dish.description}}</p>
+              <a href="#" class="AddToCart"><span>ADD TO CART</span> </a>
+              <div class="overlay">
+                <h5 class="ct">{{dish.name}}</h5>
+                <p>Quantity</p>
+                <div class="btn-group">
+                  <input id="minus" onclick='decrement("{{dish.id}}")' value="-">
+                  <input id=demoInput{{dish.id}} class="demoInput" type=number min=0 max=10 value="1">
+                  <input id="plus" onclick='increment("{{dish.id}}")' value="+">
+                </div>
+                <br/><br/>
+                
+                <p><small>total</small></p>
+                <hr>
+                <span class="price">NT$ {{dish.price}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  <h2 class="mt-5">Pasta</h2>
+  <hr>
+  <div class="row row-cols-1 row-cols-md-4 g-4">
+    {% for dish in object_list %}
+      {% if dish.tag == "Pasta" %}
+        <div class="col">
+          <div class="card">
+            <img src="{{dish.pic.url}}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">{{dish.name}}</h5>
+              <p class="card-text">{{dish.description}}</p>
+              <a href="#" class="AddToCart"><span>ADD TO CART</span> </a>
+              <div class="overlay">
+                <h5 class="ct">{{dish.name}}</h5>
+                <p>Quantity</p>
+                <div class="btn-group">
+                  <input id="minus" onclick='decrement("{{dish.id}}")' value="-">
+                  <input id=demoInput{{dish.id}} class="demoInput" type=number min=0 max=10 value="1">
+                  <input id="plus" onclick='increment("{{dish.id}}")' value="+">
+                </div>
+                <br>
+                <p>Sauce</p>
+                <div class="form-check">
+                  <input class="form-check-input " type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                  <label class="form-check-label Secondary" for="flexRadioDefault1">
+                    rossa
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input Secondary" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                  <label class="form-check-label" for="flexRadioDefault2">
+                    pesto
+                  </label>
+                </div>
+                <p><small>total</small></p>
+                <hr>
+                <span class="price">NT$ {{dish.price}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  <h2 class="mt-5">Risotto</h2>
+  <hr>
+  <div class="row row-cols-1 row-cols-md-4 g-4">
+    {% for dish in object_list %}
+      {% if dish.tag == "Risotto" %}
+        <div class="col">
+          <div class="card">
+            <img src="{{dish.pic.url}}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">{{dish.name}}</h5>
+              <p class="card-text">{{dish.description}}</p>
+              <a href="#" class="AddToCart"><span>ADD TO CART</span> </a>
+              <div class="overlay">
+                <h5 class="ct">{{dish.name}}</h5>
+                <p>Quantity</p>
+                <div class="btn-group">
+                  <input id="minus" onclick='decrement("{{dish.id}}")' value="-">
+                  <input id=demoInput{{dish.id}} class="demoInput" type=number min=0 max=10 value="1">
+                  <input id="plus" onclick='increment("{{dish.id}}")' value="+">
+                </div>
+                <br/><br/>
+                
+                <p><small>total</small></p>
+                <hr>
+                <span class="price">NT$ {{dish.price}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  <h2 class="mt-5">Others</h2>
+  <hr>
+  <div class="row row-cols-1 row-cols-md-4 g-4  mb-5">
+    {% for dish in object_list %}
+      {% if dish.tag == "Others" %}
+        <div class="col">
+          <div class="card">
+            <img src="{{dish.pic.url}}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">{{dish.name}}</h5>
+              <p class="card-text">{{dish.description}}</p>
+              <a href="#" class="AddToCart"><span>ADD TO CART</span> </a>
+              <div class="overlay">
+                <h5 class="ct">{{dish.name}}</h5>
+                <p>Quantity</p>
+                <div class="btn-group">
+                  <input id="minus" onclick='decrement("{{dish.id}}")' value="-">
+                  <input id=demoInput{{dish.id}} class="demoInput" type=number min=0 max=10 value="1">
+                  <input id="plus" onclick='increment("{{dish.id}}")' value="+">
+                </div>
+                <br/><br/>
+                
+                <p><small>total</small></p>
+                <hr>
+                <span class="price">NT$ {{dish.price}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+
+<script>
+  function increment(x) {
+    document.getElementById('demoInput'+ x).stepUp();
+  }
+  function decrement(x) {
+    document.getElementById('demoInput'+ x).stepDown();
+  }
+</script>
+
+
+{% endblock %}

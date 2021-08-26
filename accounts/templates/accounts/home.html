@@ -1,0 +1,106 @@
+{% extends 'accounts/main.html'%}
+  {% load static %}
+  {% block content %}
+  <style>
+    .shadow{
+      box-shadow: none !important;
+    }
+  </style>
+  <div class="content">
+      <div class="bannerText" id="slideshowText">
+        <div class="active">
+          <h2>EAT Healthy<br>
+          Stay Healthy</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          Praesent ultricies odio quam, eget tincidunt diam faucibus et.
+          Pellentesque vitae lacus massa. Quisque lobortis id nisi ac mattis.
+          Nam quis turpis non nunc consequat luctus. Maecenas fringilla interdum tristique.</p>
+          <a href="#">Read More</a>
+        </div>
+        <div>
+          <h2>Eat Your<br>
+          Veggies</h2>
+          <p>Curabitur finibus blandit est, ac ornare nunc finibus quis.
+          Mauris cursus nisi et lacus commodo lacinia. Donec rutrum augue feugiat.
+          Quisque non leo id tortor pharetra consequat ac et nibh. Cras sed ultricies enim, et egestas massa.
+          Donec mollis suscipit porttitor. Sed quis sapien quis libero sodales dignissim nec a elit.</p>
+          <a href="#">Read More</a>
+        </div>
+        <div>
+          <h2>Good Food<br>
+          Good Mood</h2>
+          <p>Aenean dapibus convallis mi ac lacinia.
+          Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;
+          Maecenas hendrerit purus non laoreet ultricies. Nam  id nisl mollis, molestie lectus id.
+          Class aptent taciti sociosqu ad litora torquent per conubia nostra</p>
+          <a href="#">Read More</a>
+        </div>
+      </div>
+      <div class="bannerImg" id="slideshow">
+        <img src="{% static 'images/img1.jpeg'%}" class="active">
+        <div class="overlay active">
+          <div class="text">Fruit salad</div>
+          <p><span>Ingredients -</span><br>
+          ¼ cup extra-virgin olive oil<br>
+          3 tablespoons red wine vinegar<br>
+          1 garlic clove, minced<br>
+          ½ teaspoon dried oregano, more for sprinkling<br>
+          ¼ teaspoon Dijon mustard<br>
+          1 English cucumber, cut lengthwise, seeded, and sliced ¼-inch thick<br>
+          1 green bell pepper, chopped into 1-inch pieces<br>
+          2 cups halved cherry tomatoes<br>
+          5 ounces feta cheese, cut into ½ inch cubes<br>
+          ⅓ cup thinly sliced red onion<br>
+          ⅓ cup pitted Kalamata olives<br>
+          ⅓ cup fresh mint leaves<br>
+          ¼ teaspoon sea salt</p>
+        </div>
+        <img src="{% static 'images/Cheese_Pesto_Pasta.jpeg'%}" class="two">
+        <div class="overlay">
+          <div class="text">BRoccoli pesto penne</div>
+          <p><span>Ingredients -</span><br>
+          150g wholewheat penne<br>
+          200g broccoli florets<br>
+          30g pack basil<br>
+          15g flat-leaf parsley<br>
+          20g roasted chopped hazelnuts<br>
+          3 tsp olive oil<br>
+          30g vegetarian hard cheese or Parmesan, finely grated<br>
+          2 garlic cloves, thinly sliced<br>
+          1 large red chilli, sliced into thin rounds<br>
+          </p>
+        </div>
+        <img src="{% static 'images/img3.jpeg'%}">
+        <div class="overlay">
+          <div class="text">Crispy Black Bean Vegetarian Tacos</div>
+          <p><span>Ingredients -</span><br>
+          3 Tomatoes<br>
+          2 Corn<br>
+          1 Zucchini<br>
+          ½ Yellow squash<br>
+          1 Yellow onion<br>
+          2 Red bell pepper<br>
+          ½ teaspoon Olive and canola oil<br>
+          Spices (cumin, chili powder, salt and pepper)<br>
+          50g Black beans<br>
+          ¼ bunch Cilantro<br>
+          2 tea spoon lime juice<br>
+          Tortillas, for serving<br>
+          Taco toppings of choice<br>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="icons">
+      <ul class="socials">
+        <li><a href="#"><img src="{% static 'images/facebook.png'%}"></a></li>
+        <li><a href="#"><img src="{% static 'images/instagram.png'%}"></a></li>
+        <li><a href="#"><img src="{% static 'images/twitter.png'%}"></a></li>
+      </ul>
+      <ul class="controls">
+        <li><a><img src="{% static 'images/left.png'%}" onclick="prevslide();prevslideText()"></a></li>
+        <li><a><img src="{% static 'images/right.png'%}" onclick="nextslide();nextslideText()"></a></li>
+      </ul>
+    </div>
+    
+    {% endblock %}

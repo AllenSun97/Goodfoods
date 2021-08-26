@@ -1,0 +1,93 @@
+h1 {
+  position: absolute;
+  font-size: 3em;
+  font-weight: 500;
+  color: #5a5a5a;
+  left: 50%;
+  top: 20%;
+  transform: translate(-88px, -15px);
+}
+.circle1{
+  position: absolute;
+  left: 90px;
+  top: 190px;
+  width: 600px;
+  height: 600px;
+  z-index: -1;
+}
+.container::after{
+  display: none;
+}
+.login-container{
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+  margin-bottom: 120px;
+}
+.login-card{
+  position: relative;
+  width: 360px;
+  background: #fff;
+  padding: 35px;
+  margin-top: 60px;
+  border-radius: 20px;
+  box-shadow: -2px -2px 8px rgb(0 0 0 / 1%),
+     4px 4px 8px rgb(0 0 0 / 8%);
+}
+input.formcontrol{
+  display: block;
+  width: 100%;
+  padding: .375rem .75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #5a5a5a;
+  border: 2px solid #00ffb4;
+  border-radius: .5rem;
+  outline: none;
+  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+label.pb-2{
+  color: #5a5a5a;
+  font-size: 1.3rem;
+}
+div.signup{
+  position: absolute;
+  bottom: 15px;
+  left: 20%;
+}
+div.signup a{
+  color: #5a5a5a;
+  font-weight: 600;
+  text-decoration: underline;
+  transition: 0.5s;
+}
+div.signup a:hover{
+  color: #00ffb4;
+}
+.inputBox{
+  margin-bottom: 12px;
+}
+.inputBox label{
+  color: #5a5a5a;
+  padding: 0px 3px;
+  font-size: 1.1rem;
+  position: relative;
+  bottom: -11px;
+  left: 7px;
+  background: #fff;
+}
+.inputBox small{
+  margin-top: -15px;
+}
+.inputBox div input {
+  width: 100%;
+  padding: 7px 15px ;
+  font-size: 1rem;
+  font-weight: 400;
+  color: #5a5a5a;
+  border: 2px solid #00ffb4;
+  border-radius: 10px;
+  outline: none;
+  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}

@@ -1,0 +1,144 @@
+{% extends 'accounts/main.html'%}
+  {% load static %}
+  {% block content %}
+  <style>
+    h2{
+      letter-spacing: 2px;
+    }
+    hr{
+      width: 80%;
+      margin: auto !important;
+      height: 2px !important;
+    }
+    .map-responsive{
+      position: relative;
+      height: 55vh;
+      border: solid 2px #e3e3e3;
+      border-radius: 5px;
+    }
+    .map-responsive iframe{
+      position: relative;
+      height: 100%;
+      width: 100%;
+      border-radius: 5px;
+    }
+    .card{
+      margin: 15px;
+      border: none;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.7);
+      box-shadow: -5px -5px 10px rgb(255 255 255 / 0.5), 6px 6px 15px rgb(0 0 0 / 0.2);
+      backdrop-filter: blur(5px);
+    }
+    .box{
+      display: flex;
+      flex-direction: initial;
+      margin: 30px;
+      justify-content: center;
+      margin-bottom: 0;
+    }
+    .box1{
+      padding: 10px 10px 0px 25px;
+    }
+    .box2{
+      padding: 15px 0;
+    }
+    .input-field{
+      margin-bottom: 12px;
+    }
+    .input-field label{
+      color: rgb(60, 60, 60);
+    }
+    .input-field input,textarea{
+      width: 100%;
+      border-radius: 10px;
+      border: solid #c9c9c9 1px;
+      outline: none;
+      padding: 5px 8px;
+      font-size: 0.7em;
+    }
+
+    textarea{
+      padding: 8px;
+    }
+    ul{
+      padding-left: 1em;
+    }
+    ul li{
+      font-size: 0.8em;
+    }
+    .box1 span{
+      color: #74f0cd;
+      font-weight: 500;
+    }
+    #success{
+      position: absolute;
+      right: 0;
+    }
+  </style>
+
+
+  <h1>Contact</h1>
+
+  <div class="card mb-5 col-md-12">
+    <div class="box">
+      <h3>Good to hear from You - {{ ContactForm_name }}</h3>
+    </div>
+    <hr>
+
+    <div class="box">
+      
+      <div class="box2">
+        <div class="map-responsive">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d778.0135746216811!2d120.97653353774544!3d24.810017013008085!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346835dad22a90d5%3A0xcd7e289cf357a3e2!2z6YGg5p2x5ZWG6YqA5beo5Z-O5YiG6KGM!5e0!3m2!1szh-TW!2stw!4v1628147832151!5m2!1szh-TW!2stw"
+          style="border:2px;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+        <div class="card-body">
+          <h2 class="card-title">Good Foods<span class="fw-light fs-5"> Enjoy With Us</span></h2>
+          <p class="card-text">Interested in having traditional italian dishes in a luxury restaurant ? Goodfoods is the place you're searching for !
+            Please mail us through the form beside.<br><br>
+            To make reservation, please contact us thorough following informations.</p>
+          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+        </div>
+      </div>
+
+      <div class="box1 col-md-4">
+        <form method="post" action="{% url 'contact'%}"style="position: relative;">
+          {% csrf_token%}
+          <div class="input-field">
+            <label class="ml-1 mb-1">Name</label>
+            <input type="text" id="ContactForm-name" name="contact[名稱]" required>
+          </div>
+          <div class="input-field">
+            <label class="ml-1 mb-1">Email</label>
+            <input type="email" id="ContactForm-email" name="contact[email]" autocorrect="off" autocapitalize="off" required>
+          </div>
+          <div class="input-field">
+            <label class="ml-1 mb-1">Phone</label>
+            <input type="tel" id="ContactForm-phone" name="contact[電話號碼]" pattern="[0-9\-]*" required>
+          </div>
+          <div class="input-field  mt-2">
+            <label class="ml-1 mb-1">Message</label>
+            <textarea rows="9" id="ContactForm-message" name="contact[訊息]" required style="resize: none; width: 100%; font-size: 0.75em;"></textarea>
+          </div>
+          <div id="success"> <!-- For success/fail messages -->
+		    	  <button type="submit" class="btn btn-outline-info px-4">Send</button>
+          </div>
+        </form>
+        <!-- <div>
+          <span>Contact Info</span>
+          <ul class="contact-form-inputs">
+            <li>LINE：s25681880</li>
+            <li>Email：Allen2568@gmail.com</li>
+            <li>Tel：03-5327775</li>
+        </div> -->
+        </div>
+      </div>
+    </div>
+    
+    
+  </div>
+
+  <div class="title"></div>
+  
+  {% endblock %}
