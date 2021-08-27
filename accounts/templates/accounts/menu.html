@@ -180,7 +180,7 @@
         background: none;
       }
       a.AddToCart::before{
-        left: 37%;
+        left: 38%;
         top: 10.5px;
         font-size: 13.5px;
       }
@@ -409,10 +409,13 @@
 
 <script>
   function increment(x) {
-    document.getElementById('demoInput'+ x).stepUp();
+    plusid = document.getElementById('demoInput'+ x)
+    plusid.value<10 ? (plusid.value++) : plusid.value =10
+
   }
   function decrement(x) {
-    document.getElementById('demoInput'+ x).stepDown();
+    minusid = document.getElementById('demoInput'+ x)
+    minusid.value>0 ? (plusid.value--) : plusid.value =0 
   }
 </script>
 
