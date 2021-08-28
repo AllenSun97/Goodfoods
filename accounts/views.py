@@ -94,5 +94,6 @@ class MenuView(FormMenuView):
     model = Dishes
     form_class = OrderItemsForm
     template_name = 'accounts/menu.html'
+
     
     
