@@ -1,0 +1,96 @@
+{% extends 'accounts/main.html'%}
+  {% load static %}
+  {% block content %}
+<style>
+    h5{
+      font-size: 1.6rem;
+    }
+    .card{
+      flex-direction: initial;
+      height: 70vh;
+      width: 70vw;
+      padding: 60px;
+      margin-top: 30px;
+      border: none;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.7);
+      box-shadow: -5px -5px 10px rgb(255 255 255 / 50%), 6px 6px 15px rgb(0 0 0 / 20%);
+      backdrop-filter: blur(5px);
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .card-body{
+      margin-left: 20px;
+      padding-top: 0;
+    }
+    #detail-pic{
+      box-shadow: 4px 4px 5px rgb(0 0 0 / 30%);
+      border-radius: 10px;
+    }
+    .demoInput{
+      width: 60px;
+      height: 32px;
+      background: #ffffff;
+      border-radius: 5px;
+      text-align: center;
+      color: #333;
+      margin: 3px;
+      font-size: 1.2rem;
+    } 
+    input#minus,input#plus{
+      border: none;
+      border-radius: 5px;
+      width: 25px;
+      font-size: 1.3rem;
+      background: #d2d2d2;
+      padding-left: 5px;
+      cursor: pointer;
+      outline: none;
+    }
+</style>
+  <div class="card">
+    <a href="{%url 'menu'%}"><i class="fas fa-chevron-circle-left">Menu</i></a>
+    <div>
+      <img src="{{ dish.pic.url }}" width="500px" id="detail-pic">
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">{{dish.name}}</h5>
+      <p class="card-text">{{ dish.description }}</p>
+      <hr>
+      <div class="form">
+        <form method="POST">
+          {% csrf_token %}
+          {{ form.order }}
+          {{ form.dishes }}
+          <input id="minus" onclick='decrement()' value="-" readonly>
+          {{ form.quantity}}
+          <input id="plus" onclick='increment()' value="+" readonly>
+          <br><br>
+          <input class="btn btn-outline-info" type="submit" name="submit" value="Add to Cart"></input>
+        </form>
+      </div>
+    </div>
+  </div>
+
+ <script>
+   var amount = document.getElementById("id_quantity")
+   var order = document.getElementById("id_order")
+   var item = document.getElementById("id_dishes")
+
+   order.hidden=true
+   item.hidden=true
+
+   amount.classList.add("demoInput")
+   amount.value="1",amount.max=10,amount
+
+   function increment() {
+    amount.value<10 ? (amount.value++) : amount.value =10
+
+  }
+  function decrement() {
+    amount.value>0 ? (amount.value--) : amount.value =0 
+  }
+
+ </script>
+
+  {% endblock %}

@@ -33,19 +33,63 @@ class Dishes(models.Model):
 	price = models.FloatField(null=True)
 	pic = models.ImageField(default="images/Quattro.jpg", null=True, blank=True)
 	sause = models.CharField(max_length=200, null=True, choices=CATEGORY, blank=True)
-	description = models.CharField(max_length=200, null=True, blank=True)
+	description = models.CharField(max_length=280, null=True, blank=True)
 	tag = models.CharField(max_length=200, null=True, choices=tag_list)
 
-	def __str__(self):
-		return self.name
+	def __str__(self): 
+		return f"{self.name} ─ {self.tag}"
+
+	@property
+	def imageURL(self):
+		try:
+			url = self.pic.url
+		except:
+			url = ''
+		return url
 
 class Order(models.Model):
 
 	order_id = models.AutoField(auto_created=True,primary_key=True)
 	customer = models.ForeignKey(Customer, null=True, on_delete=models.SET_NULL)
-	dishes = models.ForeignKey(Dishes, null=True, on_delete=models.SET_NULL)
-	amount = models.PositiveIntegerField(default=0)
 	order_date = models.DateTimeField(auto_now_add=True, null=True)
+	complete = models.BooleanField(default=False, null=True, blank=False)
 
 	def __str__(self):
-		return f"Order no.{self.order_id} -by- {self.customer} | {self.dishes}*{self.amount}"
+		return f"Order no.{self.order_id} -by- {self.customer}"
+
+	@property
+	def get_cart_total(self):
+		orderitems = self.orderitems_set.all()
+		total = sum([item.get_total for item in orderitems])
+		return total
+
+	@property
+	def get_cart_items(self):
+		orderitems = self.orderitems_set.all()
+		total = sum([item.quantity for item in orderitems])
+		return total
+
+class OrderItems(models.Model):
+	order = models.ForeignKey(Order, on_delete = models.CASCADE) #related_name="orderitems",
+	dishes = models.ForeignKey(Dishes, null=True, on_delete=models.SET_NULL)
+	quantity = models.PositiveIntegerField()
+
+	def __str__(self):
+		return f"{self.order} has {self.dishes} * {self.quantity}"
+	
+	@property
+	def get_total(self):
+		total = self.dishes.price * self.quantity
+		return total
+
+class ShippingAddress(models.Model):
+	customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True)
+	order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True, blank=True)
+	adress = models.CharField(max_length=200, null=True)
+	city = models.CharField(max_length=200, null=True)
+	state = models.CharField(max_length=200, null=True)
+	zipcode = models.CharField(max_length=200, null=True)
+	date_added = models.DateTimeField(auto_now_add=True)
+
+	def __str__(self):
+		return self.address

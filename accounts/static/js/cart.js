@@ -28,11 +28,9 @@ function updateUserOrder(dishId, action){
         },
         body:JSON.stringify({'dishId':dishId, 'action':action})
     })
-    
     .then((response) =>{
         return response.json();
     })
-
     .then((data) =>{
         console.log('data:',data)
         location.reload()

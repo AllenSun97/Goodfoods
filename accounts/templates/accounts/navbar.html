@@ -33,7 +33,7 @@
       
       {% if request.user.is_authenticated %}
         <li class="leaf">
-          <a href="{%url 'login'%}">{{request.user}}'s Cart<i class="fas fa-cart-arrow-down fa-lg"></i>
+          <a href="{%url 'cart'%}">{{request.user}}'s Cart{{cartItems}}<i class="fas fa-cart-arrow-down fa-lg"></i>
           </a> 
         </li>
 
