@@ -37,7 +37,7 @@
                 </div>
 
                 <hr>
-                <input id="form-button" class="btn btn-success btn-block" type="submit" value="Continue">
+                <input id="form-button" class="btn-outline-info btn-block" type="submit" value="Continue">
             </form>
         </div>
         <br>
@@ -50,7 +50,9 @@
 
     <div class="col-lg-6">
         <div class="box-element">
-            <a  class="btn btn-outline-dark" href="{% url 'cart' %}">&#x2190; Back to Cart</a>
+            <a  class="btn btn-outline-dark" href="{% url 'cart' %}">
+                <i class="fas fa-chevron-circle-left"></i> Back to Cart
+            </a>
             <hr>
             <h3>Order Summary</h3>
             <hr>
@@ -75,7 +77,6 @@
     if (user != 'AnonymousUser'){
         document.getElementById('user-info').innerHTML = ''
     }
-
 
 
     var form = document.getElementById('form')
@@ -110,6 +111,21 @@
             userFormData.email = form.email.value
         }
 
+        var url = '/process_order/'
+        fetch(url, {
+            method:'POST',
+            headers:{
+                'Content-Type':'application/json',
+                'X-CSRFToken':csrftoken,
+            },
+            body:JSON.stringify({'form':userFormData, 'shipping':shippingInfo})
+        })
+        .then((response) => response.json())
+        .then((data) =>{
+            console.log('Success:',data);
+            alert('Transation completed');
+            window.location.href = "{% url 'home' %}"
+        })
     }
 
 </script>

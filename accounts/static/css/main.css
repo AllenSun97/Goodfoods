@@ -91,13 +91,14 @@ header .logo{
   text-transform: uppercase;
   color: #5a5a5a;
   text-decoration: none;
-  font-size: 30px;
+  font-size: 31px;
   text-shadow: 1.5px 1.5px 1px rgba(0,0,0,0.2);
 }
 header .logo span{
   color: #7dffdb;
 }
 header ul{
+  margin-top: 12px;
   display: flex;
   transform: translateY(10px);
 }
@@ -127,8 +128,8 @@ header ul li a{
   display: flex;
   text-decoration: none;
   color: #5a5a5a !important;
-  font-size: 18px;
-  padding: 4px 10px;
+  font-size: 19px;
+  padding: 0px 10px;
   border-radius: 20px;
   text-shadow: 1.5px 1.5px 1px rgba(0,0,0,0.2);
 }
@@ -333,11 +334,25 @@ header ul li a.action:before{
   border-radius: 10px;
   transition: 0.5s;
 }
+.btn-outline-dark{
+  color: #525252;
+  background-color: #ffffff8d;
+  border: 2px solid #525252;
+  font-weight: 600;
+  padding: 7px 10px;
+  border-radius: 10px;
+  transition: 0.5s;
+}
 .btn-outline-info:hover{
   color: #5a5a5a;
   background: linear-gradient(to bottom right,#78ffd6 20%,#6bff97);
   border-color: #52ffcb;
   letter-spacing: 2px;
+}
+.btn-outline-dark:hover {
+  color: #fff;
+  background-color: #525252;
+  border-color: #525252;
 }
 @media (max-width: 992px){
   body{
@@ -392,6 +407,7 @@ header ul li a.action:before{
       transition: 0.5s;
       justify-content: center;
       transform: none;
+      height: 85px;
   }
   header ul li{
       display: flex;

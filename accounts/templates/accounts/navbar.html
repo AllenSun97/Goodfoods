@@ -1,11 +1,13 @@
 {% load static %}
 <style>
-  .fas{
+.fas {
     transform: translate(8px,-3px);
     color: #515151;
     padding-top: 7px;
+    margin-left: -5px;
+    font-size: 22px;
     text-shadow: 1.5px 1.5px 1px rgb(0 0 0 / 20%);
-  }
+}
   .fa-seedling{
     font-size: 1em;
     margin-right: 10px;
@@ -13,6 +15,16 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     text-shadow: none;
+  }
+  .leaf p{
+    font-size: 16px;
+    font-weight: 500;
+    transform: translate(20px, -26px);
+    background: #ff5050;
+    color: white;
+    border-radius: 10px;
+    width: 18px;
+    padding-left: 4px;
   }
 </style>
 <header class="" id="navbar">
@@ -33,7 +45,8 @@
       
       {% if request.user.is_authenticated %}
         <li class="leaf">
-          <a href="{%url 'cart'%}">{{request.user}}'s Cart{{cartItems}}<i class="fas fa-cart-arrow-down fa-lg"></i>
+          <a href="{%url 'cart'%}">{{request.user}}'s Cart
+            <i class="fas fa-shopping-cart"><p>{{cartItems}}</p></i>
           </a> 
         </li>
 

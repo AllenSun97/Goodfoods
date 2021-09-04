@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 import json
-from django.views.generic import ListView, DetailView, CreateView
+import datetime
+from django.views.generic import ListView
 
 from .models import *
+from .utils import cartData
 from django.contrib.auth import *
 from django.core.mail import send_mail
 
@@ -47,11 +49,15 @@ def registerPage(request):
     return render(request, 'accounts/register.html', context)
 
 def home(request):
-    
-    context = {}
+    data = cartData(request)
+    cartItems = data['cartItems']
+
+    context = {'cartItems':cartItems}
     return render(request, 'accounts/home.html', context)
 
 def contact(request):
+    data = cartData(request)
+    cartItems = data['cartItems']
 
     if request.method == "POST":
         ContactForm_name = request.POST['contact[名稱]']
@@ -66,12 +72,13 @@ def contact(request):
             ['s25681880@gmail.com'], # to mail hihi
             )
         
-        return render(request, 'accounts/contact.html', {'ContactForm_name':ContactForm_name})
+        return render(request, 'accounts/contact.html', {'ContactForm_name':ContactForm_name, 'cartItems':cartItems})
     else:
-        return render(request, 'accounts/contact.html', {})
+        return render(request, 'accounts/contact.html', {'cartItems':cartItems})
 
 def add_to_cart(request, pk):
-    order_id = Order.objects.get(customer = request.user.customer)
+    customer = request.user.customer
+    order_id, created = Order.objects.get_or_create(customer=customer, complete=False)
     item_id = Dishes.objects.get(pk=pk)
     form = OrderItemsForm(request.POST or None,initial={'dishes':item_id, 'order':order_id})
   
@@ -90,34 +97,26 @@ class MenuView(ListView):
 
 # yt Django Ecommerce Website
 def cart(request):
-    
-    if request.user.is_authenticated:
-        customer = request.user.customer
-        order, created = Order.objects.get_or_create(customer=customer, complete=False)
-        items = order.orderitems_set.all()
-        cartItems = order.get_cart_items
-    else:
-        items = {'get_cart_total':0, 'get_cart_items':0}
-        cartItems = items['get_cart_items']
+    # clear this by moving the code to utils.py 'cartData' function Pt4
+    data = cartData(request)
+    cartItems = data['cartItems']
+    order = data['order']
+    items = data['items']
 
     context = {'items':items, 'order':order, 'cartItems':cartItems}
     return render(request, 'accounts/cart.html', context)
 
 def checkout(request):
-    if request.user.is_authenticated:
-        customer = request.user.customer
-        order, created = Order.objects.get_or_create(customer=customer, complete=False)
-        items = order.orderitems_set.all()
-        cartItems = order.get_cart_items
-    else:
-        items = {'get_cart_total':0, 'get_cart_items':0}
-        cartItems = items['get_cart_items']
+    data = cartData(request)
+    cartItems = data['cartItems']
+    order = data['order']
+    items = data['items']
 
     context = {'items':items, 'order':order, 'cartItems':cartItems}
     return render(request, 'accounts/checkout.html', context)
 
 def updateItem(request):
-    data = json.loads(request.body)
+    data = json.loads(request.body)#the body we sent thru fetch
     dishId = data['dishId']
     action = data['action']
 
@@ -141,4 +140,28 @@ def updateItem(request):
         orderItems.delete()
         
     return JsonResponse('Item was added', safe=False)
-    
+
+def processOrder(request):
+    # transaction_id = datetime.datetime.now().timestamp()
+    data = json.loads(request.body)
+
+    if request.user.is_authenticated:
+        customer = request.user.customer
+        order, created = Order.objects.get_or_create(customer=customer, complete=False)
+        total = float(data['form']['total'])
+
+        if total == order.get_cart_total:
+            order.complete = True
+        order.save()
+
+        ShippingAddress.objects.create(
+            customer = customer,
+            order = order,
+            address = data['shipping']['address'],
+            city = data['shipping']['city'],
+            state = data['shipping']['state'],
+            zipcode = data['shipping']['zipcode'],
+        )
+    else:
+        print('User is not logged in ')
+    return JsonResponse('Payment complete', safe=False)

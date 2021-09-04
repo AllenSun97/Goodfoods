@@ -3,7 +3,7 @@
   {% block content %}
   <link rel="stylesheet" href="{% static 'css/menu.css'%}">
   <h1>Menu</h1>  
-  <h2 class="mt-4">Starters</h2>
+  <h2 class="mt-5">Starters</h2>
   <hr>
   <div class="row row-cols-1 row-cols-md-4 g-4">
     
@@ -15,14 +15,16 @@
               <div class="card-body">
                 <h5 class="card-title">{{dish.name}}</h5>
                 <p class="card-text">{{dish.description|slice:":80"| safe}}</p>
-                <a data-dish={{dish.id}} data-action="add" href="#" class="AddToCart update-cart" ><span>ADD TO CART</span></a>
-                <div class="overlay">
-                  <h5 class="ct">{{dish.name}}</h5>
-                  <p class="card-text">{{dish.description}}</p>
-                  <br/>
-                  <hr>
-                  <span class="price">NT$ {{dish.price}}</span>
-                </div>
+                <a data-dish={{dish.id}} data-action="add" class="AddToCart update-cart" ><span>ADD TO CART</span></a>
+                <a href="{% url 'add_to_cart' dish.id %}">
+                  <div class="overlay">
+                    <h5 class="ct">{{dish.name}}</h5>
+                    <p class="card-text">{{dish.description}}</p>
+                    <br/>
+                    <hr>
+                    <span class="price">NT$ {{dish.price}}</span>
+                  </div>
+                </a>
               </div>
             </div>
           </div>
@@ -37,19 +39,21 @@
     {% for dish in object_list %}
       {% if dish.tag == "Pizza" %}
         <div class="col">
-          <div class="card">
+          <div class="card" href=>
             <img src="{{dish.imageURL}}" class="card-img-top">
             <div class="card-body">
               <h5 class="card-title">{{dish.name}}</h5>
               <p class="card-text">{{dish.description|slice:":80"| safe}}</p>
-              <a data-dish={{dish.id}} data-action="add" href="#" class="AddToCart update-cart" ><span>ADD TO CART</span></a>
-              <div class="overlay">
-                <h5 class="ct">{{dish.name}}</h5>
-                <p class="card-text">{{dish.description}}</p>
-                <br/>
-                <hr>
-                <span class="price">NT$ {{dish.price}}</span>
-              </div>
+              <a data-dish={{dish.id}} data-action="add" class="AddToCart update-cart" ><span>ADD TO CART</span></a>
+              <a href="{% url 'add_to_cart' dish.id %}">
+                <div class="overlay">
+                  <h5 class="ct">{{dish.name}}</h5>
+                  <p class="card-text">{{dish.description}}</p>
+                  <br/>
+                  <hr>
+                  <span class="price">NT$ {{dish.price}}</span>
+                </div>
+              </a>
             </div>
           </div>
         </div>
@@ -68,7 +72,7 @@
             <div class="card-body">
               <h5 class="card-title">{{dish.name}}</h5>
               <p class="card-text">{{dish.description|slice:":80"| safe}}</p>
-              <a data-dish={{dish.id}} data-action="add" href="#" class="AddToCart update-cart" ><span>ADD TO CART</span></a>
+              <a data-dish={{dish.id}} data-action="add" class="AddToCart update-cart" ><span>ADD TO CART</span></a>
               <div class="overlay">
                 <h5 class="ct">{{dish.name}}</h5>
                 <p class="card-text">{{dish.description}}</p>
@@ -94,14 +98,16 @@
             <div class="card-body">
               <h5 class="card-title">{{dish.name}}</h5>
               <p class="card-text">{{dish.description|slice:":80"| safe}}</p>
-              <a data-dish={{dish.id}} data-action="add" href="{% url 'add_to_cart' dish.id %}" class="AddToCart update-cart" ><span>ADD TO CART</span></a>
-              <div class="overlay">
-                <h5 class="ct">{{dish.name}}</h5>
-                <p class="card-text">{{dish.description}}</p>
-                <br/>
-                <hr>
-                <span class="price">NT$ {{dish.price}}</span>
-              </div>
+              <a data-dish={{dish.id}} data-action="add" class="AddToCart update-cart" ><span>ADD TO CART</span></a>
+              <a href="{% url 'add_to_cart' dish.id %}">
+                <div class="overlay">
+                  <h5 class="ct">{{dish.name}}</h5>
+                  <p class="card-text">{{dish.description}}</p>
+                  <br/>
+                  <hr>
+                  <span class="price">NT$ {{dish.price}}</span>
+                </div>
+              </a>
             </div>
           </div>
         </div>
@@ -120,40 +126,31 @@
             <div class="card-body">
               <h5 class="card-title">{{dish.name}}</h5>
               <p class="card-text">{{dish.description|slice:":80"| safe}}</p>
-              <a data-dish={{dish.id}} data-action="add" href="{% url 'add_to_cart' dish.id %}" class="AddToCart update-cart" ><span>ADD TO CART</span></a>
-              <div class="overlay">
-                <h5 class="ct">{{dish.name}}</h5>
-                <!-- <p>Quantity</p>
-                <div class="btn-group">
-                  <input id="minus" onclick='decrement("{{dish.id}}")' value="-">
-                  <input id=demoInput{{dish.id}} class="demoInput" type=number min=0 max=10 value="1">
-                  <input id="plus" onclick='increment("{{dish.id}}")' value="+">
+              <a data-dish={{dish.id}} data-action="add" class="AddToCart update-cart" ><span>ADD TO CART</span></a>
+              <a href="{% url 'add_to_cart' dish.id %}">
+                <div class="overlay">
+                  <h5 class="ct">{{dish.name}}</h5>
+                  <p class="card-text">{{dish.description}}</p>
+                  <br/>
+                  <hr>
+                  <span class="price">NT$ {{dish.price}}</span>
                 </div>
-                <p><small>total</small></p> -->
-                <p class="card-text">{{dish.description}}</p>
-                <br/>
-                <hr>
-                <span class="price">NT$ {{dish.price}}</span>
-              </div>
+              </a>
             </div>
           </div>
         </div>
       {% endif %}
     {% endfor %}
   </div>
+<script>
 
-<!-- the Quantity part ;( ,Can't figure out  -->
-<!-- <script>
-  function increment(x) {
-    plusid = document.getElementById('demoInput'+ x)
-    plusid.value<10 ? (plusid.value++) : plusid.value =10
+  if (user == 'AnonymousUser'){
+    Array.from(document.getElementsByClassName('update-cart')).forEach(function(element) {
+      element.href="{% url 'login'%}"
+      });
+    }
+</script>
 
-  }
-  function decrement(x) {
-    minusid = document.getElementById('demoInput'+ x)
-    minusid.value>0 ? (plusid.value--) : plusid.value =0 
-  }
-</script> -->
 
 
 {% endblock %}

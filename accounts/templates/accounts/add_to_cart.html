@@ -2,14 +2,21 @@
   {% load static %}
   {% block content %}
 <style>
+
     h5{
       font-size: 1.6rem;
+    }
+    .btn-outline-dark{
+      position: absolute;
+      top: 20px;
+      left: 25px;
     }
     .card{
       flex-direction: initial;
       height: 70vh;
       width: 70vw;
       padding: 60px;
+      padding-top: 80px;
       margin-top: 30px;
       border: none;
       border-radius: 20px;
@@ -48,8 +55,11 @@
       outline: none;
     }
 </style>
+
   <div class="card">
-    <a href="{%url 'menu'%}"><i class="fas fa-chevron-circle-left">Menu</i></a>
+    <a href="{%url 'menu'%}" class="btn btn-outline-dark">
+      <i class="fas fa-chevron-circle-left"></i> Menu
+    </a>
     <div>
       <img src="{{ dish.pic.url }}" width="500px" id="detail-pic">
     </div>

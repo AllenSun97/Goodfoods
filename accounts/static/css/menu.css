@@ -1,7 +1,7 @@
 hr{
   height: 2px !important;
   margin: 0;
-  width: 83%;
+  width: 91%;
 }
 .container::after{
   display: none;
@@ -15,6 +15,9 @@ hr{
   height: 410px;
   background: linear-gradient(to bottom,#78ffd6 20%,#6bff97);
   z-index: -2;
+}
+h2.mt-5{
+  margin-left: 30px;
 }
 .row{
   margin-top: 5px !important;
@@ -50,6 +53,7 @@ a.AddToCart{
   transition: 0.7s;
   background: #ffffff;
   border: solid #57e8b0 1px;
+  cursor: pointer;
   
   z-index: 10;
 }
@@ -153,9 +157,9 @@ a.AddToCart:hover::before{
   .card-body {
     min-height: 200px;
   }
-  .overlay pnm .card-text {
+  .overlay p.card-text {
     padding-left: 20px;
-    font-size: 6px;
+    font-size: 11px;
     margin-bottom: 3px;
     margin-top: 10px;
   }
